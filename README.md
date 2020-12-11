@@ -8,11 +8,11 @@ Using the API provided by coingecko, provide users with a way to be able to inpu
 
 
 # User Stories:
-I want to keep track of my crypto portfolio
-I want to know the total value of my crypto portfolio
-I want to know the value of each individual asset class of my portfolio
-I want to know how well my total portfolio is performing compared to my average purchase price
-I want to know how well each individual cryptocurrency is performing compared to my average purchase price
+- I want to keep track of my crypto portfolio
+- I want to know the total value of my crypto portfolio
+- I want to know the value of each individual asset class of my portfolio
+- I want to know how well my total portfolio is performing compared to my average purchase price
+- I want to know how well each individual cryptocurrency is performing compared to my average purchase price
 
 
 # Tech Used:
