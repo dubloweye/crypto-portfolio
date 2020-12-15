@@ -2,7 +2,7 @@ import fb from './fbconfig';
 
 const db = fb.firestore();
 
-const addOne = (coin, number, buyPrice, currentPrice) => {
+const addOne = (coin, number, buyPrice, currentPrice, id, pic) => {
     db.collection('Portfolio')
         .add({
             Asset: coin,
@@ -11,7 +11,9 @@ const addOne = (coin, number, buyPrice, currentPrice) => {
             'Current Price': currentPrice,
             'Total Cost': (buyPrice * number),
             'Current Value': (currentPrice * number),
-            'Profit': ((currentPrice * number) - (buyPrice * number))
+            'Profit': ((currentPrice * number) - (buyPrice * number)),
+            id: id,
+            pic: pic
         })
         .then(function (docRef) {
             console.log('Document written with ID: ', docRef.id);
@@ -28,7 +30,7 @@ const readData = (callbackFn) => {
         });
         callbackFn(items);
     };
-    db.collection('Portfolio').get().then(q)
+    db.collection('Portfolio').onSnapshot(q)
 };
 const x = { addOne, readData, };
 export default x
