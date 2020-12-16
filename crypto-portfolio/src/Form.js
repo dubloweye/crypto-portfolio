@@ -1,12 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-date-picker'
-import COINS from './coingecko-data';
+// import COINS from './coingecko-data';
 import Select from 'react-select';
 import fb from './fbfunc'
+import axios from 'axios';
 
 
 const Form = () => {
-    let dropDown = COINS.slice(0,40).map(coin => ({value: coin.name, label: coin.name, price: coin.current_price, id: coin.id, pic: coin.image}))
+    // let dropDown = COINS.slice(0,40).map(coin => ({value: coin.name, label: coin.name, price: coin.current_price, id: coin.id, pic: coin.image}))
+
+    const marketData = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=5000&page=1&sparkline=false'
+
+    const [dropDown, setDropDown] = useState([])
+
+    useEffect(() => {
+        axios.get(marketData)
+        .then((response) => {
+            setDropDown(response.data.map(coin => ({value: coin.name, label: coin.name, price: coin.current_price, id: coin.id, pic: coin.image})));   
+        })
+        .catch((reason) => {
+            console.log('Error');
+            console.log(reason)
+        })
+    }, [marketData])
+
+    // const dropDown = () => axios.get(marketData).then((response => {
+    //     let x = response.data.map(coin => ({value: coin.name, label: coin.name, price: coin.current_price, id: coin.id, pic: coin.image}));
+    //     return x
+    // }))
+
+    // const dropDown = y()
 
     const [asset, setAsset] = useState('')
     // const handleAssetChange = event => {
@@ -41,7 +64,7 @@ const Form = () => {
 
     const handleSubmit = event => {
         console.log ('You bought ' + quantity + ' ' + asset.value + ' on ' + date + ' for $' + buyPrice +' per coin.');
-        
+
         fb.addOne(asset.value, quantity, buyPrice, asset.price, asset.id, asset.pic);
         setAsset('')
         setBuyPrice(0)
