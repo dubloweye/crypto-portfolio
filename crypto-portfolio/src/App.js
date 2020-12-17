@@ -12,7 +12,6 @@ function App() {
         <Nav />
         <Route path='/portfolio' exact component={Portfolio}/>
         <Route path='/form' component={Form} />
-        <h1>Crypto Portfolio</h1>
         {/* <Form />
         <Portfolio /> */}
       </div>

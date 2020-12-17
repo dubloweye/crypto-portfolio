@@ -5,22 +5,23 @@ import axios from "axios";
 import { Table } from "react-bootstrap";
 // import 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
+import x from "./fbfunc";
 
 const db = firebase.firestore();
 
 const Portfolio = () => {
-  const [positions, setPositions] = useState([]);
+    const [positions, setPositions] = useState([]);
 
   const marketData =
     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=5000&page=1&sparkline=false";
 
-  const [price, setPrice] = useState([]);
+  const [pricing, setPricing] = useState([]);
 
   useEffect(async () => {
     await axios
       .get(marketData)
       .then((response) => {
-        setPrice(
+        setPricing(
           response.data.map((coin) => ({
             value: coin.name,
             label: coin.name,
@@ -40,10 +41,6 @@ const Portfolio = () => {
     fb.readData(setPositions);
   }, []);
 
-  console.log(positions);
-  console.log(price);
-  // Function to map positions into a portfolio
-
   const indiv = (arr) => {
     const distinct = [];
     const indivPosit = [];
@@ -56,15 +53,20 @@ const Portfolio = () => {
     return indivPosit;
   };
 
-  console.log(indiv(positions));
-
   const aggreg = (arr, coins) => {
     const agg = [];
     for (let i = 0; i < arr.length; i++) {
       const coin = coins.filter((object) => {
         return object.id === arr[i][0].id;
       });
-      const x = coin[0];
+      let x = {price: 'noval'}
+      if (coin.length > 0) {
+         x = coin[0] 
+         console.log(x)
+         console.log(coin)
+      }
+      console.log(coin);
+
     //   console.log(coin);
       agg.push({
         Asset: arr[i][0].Asset,
@@ -74,7 +76,7 @@ const Portfolio = () => {
         "Total Cost": arr[i].reduce(function (accumulator, currentVal) {
           return accumulator + parseFloat(currentVal["Total Cost"]);
         }, 0),
-        "Current Price": x.price,
+        "Current Price": x.price, //coin[0].price
         "Average Cost":
           arr[i].reduce(function (accumulator, currentVal) {
             return accumulator + parseFloat(currentVal["Total Cost"]);
@@ -89,12 +91,12 @@ const Portfolio = () => {
             }, 0) -
           arr[i].reduce(function (accumulator, currentVal) {
             return accumulator + parseFloat(currentVal["Total Cost"]);
-          }, 0), //arr[i].reduce(function (accumulator, currentVal) {return accumulator + parseFloat(currentVal.Profit)}, 0),
+          }, 0), 
         "Current Value":
           x.price *
           arr[i].reduce(function (accumulator, currentVal) {
             return accumulator + parseFloat(currentVal.Quantity);
-          }, 0), //arr[i].reduce(function (accumulator, currentVal) {return accumulator + parseFloat(currentVal['Current Value'])}, 0),
+          }, 0),
         id: arr[i][0].id,
         pic: arr[i][0].pic,
       });
@@ -104,7 +106,7 @@ const Portfolio = () => {
 
 //   console.log(aggreg(indiv(positions), price));
 
-  const port = aggreg(indiv(positions), price).sort(function (a, b) {
+  const port = aggreg(indiv(positions), pricing).sort(function (a, b) {
     return b["Current Value"] - a["Current Value"];
   });
 
