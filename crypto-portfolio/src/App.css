@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-color: darkslategrey;
+  color: white;
 }
 
 .App-logo {
@@ -37,7 +39,23 @@
   }
 }
 
-#portfolio {
-  border: 2px solid black
+.portfolio {
+  border: 2px solid black;
+  align-content: center
   
+}
+
+/* #form {
+  width: 300px;
+  align-content: center;
+} */
+
+.form {
+  display: flex;
+  justify-content: center !important;
+  background-color: tomato;
+}
+
+.PnL {
+  color: green
 }

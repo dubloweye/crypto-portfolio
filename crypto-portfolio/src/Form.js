@@ -4,7 +4,7 @@ import DatePicker from 'react-date-picker'
 import Select from 'react-select';
 import fb from './fbfunc'
 import axios from 'axios';
-
+import { Card } from 'react-bootstrap'
 
 const Form = () => {
     // let dropDown = COINS.slice(0,40).map(coin => ({value: coin.name, label: coin.name, price: coin.current_price, id: coin.id, pic: coin.image}))
@@ -22,6 +22,8 @@ const Form = () => {
             console.log('Error');
             console.log(reason)
         })
+
+        // axios.get
     }, [marketData])
 
     // const dropDown = () => axios.get(marketData).then((response => {
@@ -62,6 +64,22 @@ const Form = () => {
 
     console.log(date.ddmmyyyy())
 
+    const historicData = 'https://api.coingecko.com/api/v3/coins/' + asset.id +'/history?date=' + date.ddmmyyyy()
+    
+    useEffect(() => {
+        axios.get(historicData)
+        .then((response) => {
+            if (buyPrice <= 0) {
+            setBuyPrice(response.data['market_data']['current_price']['usd'])
+            console.log(buyPrice)
+        }
+        })
+        .catch((reason) => {
+            console.log('Error');
+            console.log(reason)
+        })
+    })
+
     const handleSubmit = event => {
         console.log ('You bought ' + quantity + ' ' + asset.value + ' on ' + date + ' for $' + buyPrice +' per coin.');
 
@@ -73,11 +91,14 @@ const Form = () => {
         event.preventDefault();
     }
 
+    
+
     return(
-        <form>
+        <Card style={{ width: '25rem' }} className='form' bg='primary'>
+        <form id='form'>
             <div>
                 <label>Select Coin</label>
-                <Select value={asset} options={dropDown} onChange={setAsset}  />
+                <Select value={asset} options={dropDown} onChange={setAsset} />
             </div>
             <div>
                 <label>Number Bought</label>
@@ -95,6 +116,7 @@ const Form = () => {
                 <input type='submit' value='Submit' onClick={handleSubmit} />
             </div>
         </form>
+        </Card>
     )
 }
 
