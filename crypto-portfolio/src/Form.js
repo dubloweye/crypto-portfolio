@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-date-picker'
-// import COINS from './coingecko-data';
 import Select from 'react-select';
 import fb from './fbfunc'
 import axios from 'axios';
 import { Card } from 'react-bootstrap'
 
 const Form = () => {
-    // let dropDown = COINS.slice(0,40).map(coin => ({value: coin.name, label: coin.name, price: coin.current_price, id: coin.id, pic: coin.image}))
-
+   
     const marketData = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=5000&page=1&sparkline=false'
 
     const [dropDown, setDropDown] = useState([])
@@ -23,22 +21,10 @@ const Form = () => {
             console.log(reason)
         })
 
-        // axios.get
     }, [marketData])
 
-    // const dropDown = () => axios.get(marketData).then((response => {
-    //     let x = response.data.map(coin => ({value: coin.name, label: coin.name, price: coin.current_price, id: coin.id, pic: coin.image}));
-    //     return x
-    // }))
-
-    // const dropDown = y()
 
     const [asset, setAsset] = useState('')
-    // const handleAssetChange = event => {
-    //     setAsset(event.target.value)
-    // }
-
-    console.log(asset.id)
 
     const [quantity, setQuantity] = useState(0)
     const handleQuantityChange = event => {
@@ -51,9 +37,7 @@ const Form = () => {
     }
 
     const [date, setDate] = useState(new Date())
-    // const handleDateChange = event => {
-    //     setDate(event.target.value)
-    // }
+
 
     Date.prototype.ddmmyyyy = function() {
         let mm = this.getMonth() + 1;

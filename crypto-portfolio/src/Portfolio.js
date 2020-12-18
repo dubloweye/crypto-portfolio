@@ -3,9 +3,7 @@ import fb from "./fbfunc";
 import firebase from "./fbconfig";
 import axios from "axios";
 import { Table, Card } from "react-bootstrap";
-// import 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
-import x from "./fbfunc";
 
 const db = firebase.firestore();
 
@@ -65,9 +63,7 @@ const Portfolio = () => {
          console.log(x)
          console.log(coin)
       }
-      console.log(coin);
 
-    //   console.log(coin);
       agg.push({
         Asset: arr[i][0].Asset,
         Quantity: arr[i].reduce(function (accumulator, currentVal) {
@@ -76,7 +72,7 @@ const Portfolio = () => {
         "Total Cost": arr[i].reduce(function (accumulator, currentVal) {
           return accumulator + parseFloat(currentVal["Total Cost"]);
         }, 0),
-        "Current Price": x.price, //coin[0].price
+        "Current Price": x.price,
         "Average Cost":
           arr[i].reduce(function (accumulator, currentVal) {
             return accumulator + parseFloat(currentVal["Total Cost"]);
@@ -130,11 +126,6 @@ const Portfolio = () => {
     <Card style={{ height: '50rem' }} className='form' bg='secondary'>
     <div>
       <h1>Portfolio</h1>
-      {/* <ul>
-        {port.map((position) => (
-          <li>{`${position.Quantity} ${position.Asset} currently worth ${position["Current Value"]} bought at ${position["Total Cost"]} (average cost: $${position['Average Cost']}) with current profit equal to $${position["Profit"]}.`}</li>
-        ))}
-      </ul> */}
       <h5>Total Cost: ${totalCost.toLocaleString()}</h5>
       <h5>Current Value: ${totalVal.toLocaleString()}</h5>
     <h5>Overall Profit: ${(totalVal - totalCost).toLocaleString()}</h5>

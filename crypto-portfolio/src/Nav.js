@@ -16,6 +16,9 @@ const Nav = () => {
         <Link style={navStyle} to="/form">
           <li>Add to Portfolio</li>
         </Link>
+        <Link style={navStyle} to="/history">
+          <li>View Transaction History</li>
+        </Link>
       </ul>
     </nav>
   );
