@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import fb from "./fbfunc";
 import firebase from "./fbconfig";
 import axios from "axios";
-import { Table } from "react-bootstrap";
+import { Table, Card } from "react-bootstrap";
 // import 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import x from "./fbfunc";
@@ -127,6 +127,7 @@ const Portfolio = () => {
     }
 
   return (
+    <Card style={{ height: '50rem' }} className='form' bg='secondary'>
     <div>
       <h1>Portfolio</h1>
       {/* <ul>
@@ -173,6 +174,7 @@ const Portfolio = () => {
         </tbody>
       </Table>
     </div>
+    </Card>
   );
 };
 
