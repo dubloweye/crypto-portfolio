@@ -7,15 +7,16 @@ import Nav from "./Nav";
 
 function App() {
   return (
+    <div className="App">
     <Router>
-      <div className="App">
+      
         <Nav />
         <Route path='/portfolio' exact component={Portfolio}/>
         <Route path='/form' component={Form} />
-        {/* <Form />
-        <Portfolio /> */}
-      </div>
+      
     </Router>
+    <p>Created with API from Coingecko and storage solutions from Firebase</p>
+    </div>
   );
 }
 

@@ -110,6 +110,22 @@ const Portfolio = () => {
     return b["Current Value"] - a["Current Value"];
   });
 
+  const totalCost = port.reduce( function(accumulator, currentVal) {
+      return accumulator + parseFloat(currentVal['Total Cost']);
+  }, 0)
+
+  const totalVal = port.reduce( function(accumulator, currentVal) {
+    return accumulator + parseFloat(currentVal['Current Value']);
+}, 0)
+
+    const styling = (profit) => {
+        let x = {color: 'green'};
+        if (profit < 0) {
+            x = {color: 'red'};
+        }
+        return x
+    }
+
   return (
     <div>
       <h1>Portfolio</h1>
@@ -118,6 +134,9 @@ const Portfolio = () => {
           <li>{`${position.Quantity} ${position.Asset} currently worth ${position["Current Value"]} bought at ${position["Total Cost"]} (average cost: $${position['Average Cost']}) with current profit equal to $${position["Profit"]}.`}</li>
         ))}
       </ul> */}
+      <h5>Total Cost: ${totalCost.toLocaleString()}</h5>
+      <h5>Current Value: ${totalVal.toLocaleString()}</h5>
+    <h5>Overall Profit: ${(totalVal - totalCost).toLocaleString()}</h5>
       <Table bordered hover variant="dark">
         <thead>
           <tr>
@@ -148,7 +167,7 @@ const Portfolio = () => {
               <td>${position["Average Cost"].toLocaleString()}</td>
               <td>${position["Current Value"].toLocaleString()}</td>
               <td>${position["Total Cost"].toLocaleString()}</td>
-              <td className="PnL">${position.Profit.toLocaleString()}</td>
+              <td style={styling(position.Profit)}>${position.Profit.toLocaleString()}</td>
             </tr>
           ))}
         </tbody>

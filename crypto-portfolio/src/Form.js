@@ -94,11 +94,11 @@ const Form = () => {
     
 
     return(
-        <Card style={{ width: '25rem' }} className='form' bg='primary'>
+        <Card style={{ height: '400rem' }} className='form' bg='success'>
         <form id='form'>
             <div>
                 <label>Select Coin</label>
-                <Select value={asset} options={dropDown} onChange={setAsset} />
+                <Select className='selection' value={asset} options={dropDown} onChange={setAsset} />
             </div>
             <div>
                 <label>Number Bought</label>
@@ -110,7 +110,7 @@ const Form = () => {
             </div>
             <div>
                 <label>Date Bought</label>
-                <DatePicker value={date} onChange={setDate} format='dd-MM-yyyy' /> 
+                <DatePicker className='calendar' value={date} onChange={setDate} format='d/M/yyyy' /> 
             </div>
             <div>
                 <input type='submit' value='Submit' onClick={handleSubmit} />
